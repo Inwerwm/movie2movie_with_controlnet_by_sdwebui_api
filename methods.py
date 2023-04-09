@@ -148,7 +148,7 @@ def image_from_response_json(response_json: Dict[str, Any]) -> np.ndarray:
         raise ValueError(response_json['detail'][0]['msg'])
     
 def img_to_img(base64_images: list[str], height: int, width: int, params) -> np.ndarray:
-    request_json = create_request_json(*base64_images, width, height, params["prompt"], params["negative_prompt"], params["seed"]) # type: ignore
+    request_json = create_request_json(*base64_images, width, height, params["prompt"], params["negative_prompt"], -1 if params.get("seed") is None else params["seed"]) # type: ignore
     res = requests.post('http://127.0.0.1:7860/sdapi/v1/img2img', json = request_json)
     return image_from_response_json(res.json())
 
