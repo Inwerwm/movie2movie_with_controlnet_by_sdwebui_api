@@ -30,7 +30,7 @@ images, heights, widths = zip(*[load_image(path, max_size) for path in [input_pa
 image_base64s = [methods.image_to_base64(image, max_size) for image in images] # type: ignore
 
 # Web API に送信
-image = methods.img_to_img(image_base64s, widths[0], heights[0], input_params) # type: ignore
+image = methods.img_to_img(image_base64s, heights[0], widths[0], input_params) # type: ignore
 
 # 結果の画像を動画ファイルに書き込む
 methods.imwrite(input_params["output_path"], image)
