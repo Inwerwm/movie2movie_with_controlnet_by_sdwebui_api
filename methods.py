@@ -1,4 +1,5 @@
 import base64
+import os
 import random
 import cv2
 from typing import Dict, Any
@@ -156,3 +157,18 @@ def randomDigits(digits):
     lower = 10**(digits-1)
     upper = 10**digits - 1
     return random.randint(lower, upper)
+
+def imwrite(filename, img, params=None):
+    try:
+        ext = os.path.splitext(filename)[1]
+        result, n = cv2.imencode(ext, img, params)
+
+        if result:
+            with open(filename, mode='w+b') as f:
+                n.tofile(f)
+            return True
+        else:
+            return False
+    except Exception as e:
+        print(e)
+        return False

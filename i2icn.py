@@ -33,4 +33,4 @@ image_base64s = [methods.image_to_base64(image, max_size) for image in images] #
 image = methods.img_to_img(image_base64s, widths[0], heights[0], input_params) # type: ignore
 
 # 結果の画像を動画ファイルに書き込む
-cv2.imwrite(input_params["output_path"], image)
+methods.imwrite(input_params["output_path"], image)
