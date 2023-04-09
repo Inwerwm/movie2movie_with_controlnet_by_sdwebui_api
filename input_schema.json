@@ -3,6 +3,7 @@
     "input_depth_path": "input_depth.avi",
     "input_pose_path": "input_pose.avi",
     "output_path": "output.avi",
+    "denoising_strength": 0.75,
     "prompt": "string",
     "negative_prompt": "string"
 }

@@ -6,11 +6,11 @@ import numpy as np
 
 import requests
 
-def create_request_json(color_frame_base64: str, depth_frame_base64: str, pose_frame_base64: str, frame_width: int, frame_height: int, prompt: str, negative_prompt: str = "", seed: int = -1) -> Dict[str, Any]:
+def create_request_json(color_frame_base64: str, depth_frame_base64: str, pose_frame_base64: str, frame_width: int, frame_height: int, denoising_strength: float, prompt: str, negative_prompt: str = "", seed: int = -1) -> Dict[str, Any]:
     return {
         "init_images": [color_frame_base64],
         "resize_mode": 0,
-        "denoising_strength": 0.67,
+        "denoising_strength": denoising_strength,
         "image_cfg_scale": 0,
         "mask": None,
         "mask_blur": 4,
@@ -148,7 +148,7 @@ def image_from_response_json(response_json: Dict[str, Any]) -> np.ndarray:
         raise ValueError(response_json['detail'][0]['msg'])
     
 def img_to_img(base64_images: list[str], height: int, width: int, params) -> np.ndarray:
-    request_json = create_request_json(*base64_images, width, height, params["prompt"], params["negative_prompt"], -1 if params.get("seed") is None else params["seed"]) # type: ignore
+    request_json = create_request_json(*base64_images, width, height, params["denoising_strength"], params["prompt"], params["negative_prompt"], -1 if params.get("seed") is None else params["seed"]) # type: ignore
     res = requests.post('http://127.0.0.1:7860/sdapi/v1/img2img', json = request_json)
     return image_from_response_json(res.json())
 
