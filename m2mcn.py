@@ -1,5 +1,6 @@
 import json
 import cv2
+from tqdm import tqdm
 import methods
 
 # 入力動画ファイル名と出力動画ファイル名
@@ -11,6 +12,7 @@ caps = [cv2.VideoCapture(path) for path in [input_params["input_color_path"], in
 fps = caps[0].get(cv2.CAP_PROP_FPS)
 frame_width = int(caps[0].get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(caps[0].get(cv2.CAP_PROP_FRAME_HEIGHT))
+total_frames = int(caps[0].get(cv2.CAP_PROP_FRAME_COUNT))
 
 # シード値を生成
 input_params["seed"] = methods.randomDigits(10)
@@ -19,7 +21,7 @@ input_params["seed"] = methods.randomDigits(10)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 out = cv2.VideoWriter(input_params["output_path"], fourcc, fps, (frame_width, frame_height))
 
-while True:
+for _ in tqdm(range(total_frames)):
     # フレームを読み込む
     isSuccess, frames = zip(*[cap.read() for cap in caps])
 
