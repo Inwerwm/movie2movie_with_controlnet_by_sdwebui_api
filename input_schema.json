@@ -1,0 +1,8 @@
+{
+    "input_color_path": "input_color.avi",
+    "input_depth_path": "input_depth.avi",
+    "input_pose_path": "input_pose.avi",
+    "output_path": "output.avi",
+    "prompt": "string",
+    "negative_prompt": "string"
+}
