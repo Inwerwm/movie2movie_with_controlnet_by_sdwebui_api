@@ -31,7 +31,7 @@ while True:
     frame_base64s = [methods.image_to_base64(frame) for frame in frames]
 
     # Web API に送信
-    result_frame = methods.img_to_img(frame_base64s, frame_width, frame_height, input_params)
+    result_frame = methods.img_to_img(frame_base64s, frame_height, frame_width, input_params)
 
     # 結果の画像を動画ファイルに書き込む
     out.write(result_frame)
